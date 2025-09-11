@@ -1,29 +1,64 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
-
-Console.WriteLine("This is the first line.");
-Console.WriteLine("This is the second line.");
-
-//DESAFIO Ejercicio: Realización de una actividad de desafío con el ámbito de las variables
-
-int[] numbers = { 4, 8, 15, 16, 23, 42 };
-int total = 0;
-bool found = false;
-
-foreach (int number in numbers)
+﻿string[,] corporate = 
 {
-    total += number;
+    {"Robert", "Bavin"}, {"Simon", "Bright"},
+    {"Kim", "Sinclair"}, {"Aashrita", "Kamath"},
+    {"Sarah", "Delucchi"}, {"Sinan", "Ali"}
+};
 
-    if (number == 42)
+string[,] external = 
+{
+    {"Vinnie", "Ashton"}, {"Cody", "Dysart"},
+    {"Shay", "Lawrence"}, {"Daren", "Valdes"}
+};
+
+string externalDomain = "hayworth.com";
+
+PrintCorportateEmail(corporate);
+PrintExternalEmail(external, externalDomain);
+
+void PrintCorportateEmail(string[,] corporate, string domain = "contoso.com") 
+{
+    string[] emailCorporateAddresses = new string[corporate.GetLength(0)];
+    for (int i = 0; i < corporate.GetLength(0); i++)
     {
-       found = true;
+        for (int j = 0; j < corporate.GetLength(1); j++)
+        {
+            // display internal email addresses
+            string firstName = corporate[i, 0];
+            string lastName = corporate[i, 1];
+            string email = $"{firstName.ToLower()[..2]}{lastName.ToLower()}@{domain}";
+            emailCorporateAddresses[i] = email;
+        }
+        Console.WriteLine(emailCorporateAddresses[i]);
     }
-
 }
 
-if (found) 
+void PrintExternalEmail(string[,] external, string domain = "contoso.com")
 {
-    Console.WriteLine("Set contains 42");
+    string[] emailExternalAddresses = new string[external.GetLength(0)];
+    for (int i = 0; i < external.GetLength(0); i++)
+    {
+        for (int j = 0; j < external.GetLength(1); j++)
+        {
+            // display internal email addresses
+            string firstName = external[i, 0];
+            string lastName = external[i, 1];
+            string email = $"{firstName.ToLower()[..2]}{lastName.ToLower()}@{domain}";
+            emailExternalAddresses[i] = email;
+        }
+        Console.WriteLine(emailExternalAddresses[i]);
+    }
 }
 
-Console.WriteLine($"Total: {total}");
+/*
+robavin@contoso.com
+sibright@contoso.com
+kisinclair@contoso.com
+aakamath@contoso.com
+sadelucchi@contoso.com
+siali@contoso.com
+viashton@hayworth.com
+codysart@hayworth.com
+shlawrence@hayworth.com
+davaldes@hayworth.com
+*/
